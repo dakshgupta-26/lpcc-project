@@ -267,6 +267,11 @@ ViperLang is not just a compiler project — it's a **complete interactive syste
 * Memory management
 * Real-world software integration
 
+<img width="1913" height="907" alt="image" src="https://github.com/user-attachments/assets/bdf490c0-872c-47e3-ad07-0cc9814e9065" />
+<img width="1912" height="910" alt="image" src="https://github.com/user-attachments/assets/8ce200ec-0c6a-4a68-98f5-3edbb1c7526d" />
+<img width="793" height="752" alt="image" src="https://github.com/user-attachments/assets/374f94ae-f4ac-4832-8947-3f360e4a088f" />
+<img width="853" height="767" alt="image" src="https://github.com/user-attachments/assets/d189abe6-53be-42f8-b88e-de2c87a7bfd5" />
 
 
-Just tell me 👍
+
+
