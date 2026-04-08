@@ -1,105 +1,272 @@
-🚀 ViperLang: Advanced Compiler Studio
-A Full-Stack, Web-Based Compiler Implementation using ANTLR4 and Python
 
-📖 Table of Contents
-Project Overview
-Why This Project? (Motivation)
-System Architecture: How ANTLR Works Here
-Core Features
-Language Specification
-Project Structure & File Definitions
-Installation & Execution
+# 🚀 ViperLang: Advanced Compiler Studio
 
-📌 Project Overview
-ViperLang is a custom, dynamically-typed programming language accompanied by a fully functional web-based Compiler Studio. Unlike standard academic compiler projects that stop at syntax validation (Parsing), this project features a complete end-to-end pipeline. It reads source code, generates an Abstract Syntax Tree (AST) using ANTLR4, and executes the logic in real-time using a custom Python-based Execution Engine (Visitor Pattern).
+### A Full-Stack Web-Based Compiler using ANTLR4 + Python
 
-The entire environment is hosted on a modern Streamlit web dashboard, providing a visual, IDE-like experience complete with syntax highlighting, live memory tracking, and execution tracing.
+## 📖 Table of Contents
 
-💡 Why This Project? (Motivation)
-The primary goal of this project was to bridge the gap between theoretical compiler design and practical software engineering.
+* [📌 Project Overview](#-project-overview)
+* [💡 Motivation](#-motivation)
+* [⚙️ System Architecture](#️-system-architecture)
+* [✨ Core Features](#-core-features)
+* [📜 Language Specification](#-language-specification)
+* [📂 Project Structure](#-project-structure)
+* [💻 Installation & Execution](#-installation--execution)
 
-The Problem: Most beginner compiler projects only build a Lexer and Parser, outputting a static tree without actually running the code.
+## 📌 Project Overview
 
-The Solution: By implementing the Visitor Design Pattern, this project steps into Semantic Analysis and Execution. It demonstrates how compilers manage memory (Symbol Tables), evaluate mathematical expressions, and handle control flow (like while loops and if statements) at runtime.
+ViperLang is a custom dynamically-typed programming language with a fully functional **web-based Compiler Studio**.
 
-⚙️ System Architecture: How ANTLR Works Here
-This compiler operates in three distinct phases, seamlessly blending Java-based ANTLR generation with Python-based execution.
+Unlike traditional academic compiler projects (which stop at parsing), this project implements a **complete end-to-end compilation pipeline**:
 
-Phase 1: Lexical Analysis (The Lexer)
-What it does: The Lexer reads the raw text input (e.g., score = 9;) character by character and groups them into meaningful Tokens (e.g., ID, ASSIGN, INT, SEMI).
+* Source Code Input
+* Tokenization (Lexer)
+* Parsing → AST Generation
+* Semantic Execution (Visitor Pattern)
 
-How ANTLR handles it: Defined in ViperLang.g4, ANTLR auto-generates ViperLangLexer.py. If it encounters an invalid character, it throws a Lexical Error.
+The entire system runs inside a **Streamlit-powered web IDE**, offering:
 
-Phase 2: Syntax Analysis (The Parser & AST)
-What it does: The Parser takes the stream of Tokens and checks them against the grammatical rules defined in our .g4 file.
+* Real-time execution
+* AST visualization
+* Memory tracking
+* Debug tracing
 
-How ANTLR handles it: If the grammar is mathematically correct, ANTLR builds an Abstract Syntax Tree (AST). This tree represents the hierarchical structure of the code. For example, an addition operation becomes a parent node (+) with two child nodes representing the numbers.
+---
 
-Phase 3: Semantic Execution (The Custom Visitor)
-What it does: ANTLR itself does not execute code. It only builds the tree. To actually run the code, we built a custom Python class (ViperExecutionEngine) that inherits from ANTLR's ViperLangVisitor.
+## 💡 Motivation
 
-How it works: The engine "walks" down the AST. When it visits an assignment node (score = 9), it allocates memory in a Python Dictionary (acting as our Symbol Table). When it visits a while loop, it recursively evaluates the condition and executes the inner statements until the condition becomes false.
+### ❌ Problem
 
-✨ Core Features
-Modern Web IDE (Streamlit-Ace): * Embedded code editor with Monokai dark theme, syntax highlighting, line numbers (gutters), and auto-update capabilities.
+Most beginner compiler projects:
 
-Live AST Visualization (Graphviz): * Dynamically generates and renders the mathematical tree structure of the parsed code on the dashboard.
+* Only build Lexer + Parser
+* Do NOT execute code
+* Provide static AST output
 
-Real-Time Semantic Execution: * Executes the code immediately upon successful compilation and displays standard output in a dedicated Console UI.
+### ✅ Solution
 
-Live Symbol Table (Memory Manager): * A dynamic data table (built with Pandas) that tracks variable states, allocations, and mutations during runtime.
+ViperLang goes beyond theory by implementing:
 
-Robust Error Handling Architecture:
+* **Visitor Design Pattern**
+* **Runtime Execution Engine**
+* **Symbol Table (Memory Management)**
+* **Control Flow Handling**
 
-Syntax Errors: Caught by a custom ANTLR ErrorListener (e.g., missing semicolons).
+This bridges the gap between:
 
-Semantic Errors: Caught by the Execution Engine (e.g., using undefined variables, division by zero).
+> 📚 Compiler Theory → 🧠 Real-World Implementation
 
-Compiler Thought-Process Logger (Trace):
+## ⚙️ System Architecture
 
-An expandable logging interface that reveals the compiler's internal state—showing iteration counts, memory assignments, and decision-making for conditional branches.
+The compiler works in **3 main phases**:
 
-📜 Language Specification (ViperLang)
-ViperLang is a dynamically typed language. Data types (Integers, Floats) are inferred at runtime, eliminating the need for strict type declarations (like int or float). It strictly utilizes the semicolon ; as a Statement Terminator to resolve multi-line ambiguities.
+### 🧩 Phase 1: Lexical Analysis (Lexer)
 
-// Variable Initialization
+**What it does:**
+
+* Converts raw input into tokens
+  Example:
+
+  ```
+  score = 9;
+  ```
+
+  → `ID`, `ASSIGN`, `INT`, `SEMI`
+
+**ANTLR Role:**
+
+* Defined in `ViperLang.g4`
+* Generates: `ViperLangLexer.py`
+
+### 🌳 Phase 2: Syntax Analysis (Parser + AST)
+
+**What it does:**
+
+* Validates syntax rules
+* Builds **Abstract Syntax Tree (AST)**
+
+Example:
+
+```
+5 + 3
+```
+
+→ Tree with `+` as root and `5`, `3` as children
+
+**ANTLR Role:**
+
+* Generates:
+
+  * `ViperLangParser.py`
+  * AST structure
+
+### ⚡ Phase 3: Semantic Execution (Visitor Pattern)
+
+**What it does:**
+
+* Executes the AST
+* Manages variables using a **Symbol Table (Python Dictionary)**
+
+**Example:**
+
+```
+score = 9;
+```
+
+→ Stored in memory
+
+```
+while (count < 4)
+```
+
+→ Loop executed dynamically
+
+---
+
+## ✨ Core Features
+
+### 🖥️ Modern Web IDE (Streamlit-Ace)
+
+* Dark theme (Monokai)
+* Syntax highlighting
+* Line numbers
+* Live editing
+
+---
+
+### 🌳 Live AST Visualization (Graphviz)
+
+* Displays program structure visually
+* Helps understand parsing behavior
+
+---
+
+### ⚡ Real-Time Execution
+
+* Code runs instantly after compilation
+* Output shown in console UI
+
+---
+
+### 📊 Live Symbol Table (Memory Manager)
+
+* Built with Pandas
+* Tracks:
+
+  * Variable values
+  * Updates
+  * Memory state
+
+---
+
+### 🚨 Robust Error Handling
+
+* **Syntax Errors**
+
+  * Missing semicolons
+  * Invalid grammar
+
+* **Semantic Errors**
+
+  * Undefined variables
+  * Division by zero
+
+---
+
+### 🧠 Compiler Trace Logger
+
+* Shows internal working:
+
+  * Loop iterations
+  * Variable updates
+  * Condition evaluations
+
+---
+
+## 📜 Language Specification (ViperLang)
+
+### 🔹 Features
+
+* Dynamically typed
+* No explicit type declaration
+* Uses `;` as statement terminator
+
+---
+
+### 🧪 Example Programs
+
+#### ✅ Variable Initialization
+
+```c
 score = 9;
 bonus = 5;
+```
 
-// While Loop Execution
+#### 🔁 While Loop
+
+```c
 count = 1;
 while (count < 4) {
     print(count);
     count = count + 1;
 }
+```
 
-// Conditional Logic
+#### 🔀 Conditional
+
+```c
 if (score > 5) {
     print(score + bonus);
 }
+```
 
-File Name,Purpose and Technical Details
-ViperLang.g4,The Grammar Blueprint: Contains the Lexer and Parser rules. It dictates the syntax of ViperLang using ANTLR's meta-language.
-app.py,"The Control Center: The main Streamlit Python script. It wires together the UI, the AST Graph generator, the Custom Error Listeners, and the Execution Engine."
-ViperLangLexer.py,(Auto-generated) The Python class responsible for Tokenizing the input string.
-ViperLangParser.py,(Auto-generated) The Python class responsible for enforcing syntax rules and generating the raw AST.
-ViperLangVisitor.py,"(Auto-generated) The base class interface provided by ANTLR, which we override in app.py to create our Execution logic."
-antlr-4.13.2-complete.jar,The core ANTLR Java binary used to compile the .g4 file into Python components.
+---
 
-💻 Installation & Execution
-Prerequisites
-Python 3.8+
+## 📂 Project Structure
 
-Java Runtime Environment (JRE) 11+ (Required to run the ANTLR tool)
+| File Name                   | Description                                |
+| --------------------------- | ------------------------------------------ |
+| `ViperLang.g4`              | Grammar file (Lexer + Parser rules)        |
+| `app.py`                    | Main Streamlit app (UI + Execution Engine) |
+| `ViperLangLexer.py`         | Tokenizer (auto-generated)                 |
+| `ViperLangParser.py`        | Parser + AST generator (auto-generated)    |
+| `ViperLangVisitor.py`       | Base visitor class (auto-generated)        |
+| `antlr-4.13.2-complete.jar` | ANTLR tool for code generation             |
 
-Step 1: Install Python Dependencies
-Bash
+---
+
+## 💻 Installation & Execution
+
+### 🔧 Prerequisites
+
+* Python **3.8+**
+* Java **JRE 11+**
+
+### 📦 Step 1: Install Dependencies
+
 pip install streamlit graphviz antlr4-python3-runtime pandas streamlit-ace
-Step 2: Generate the Parser (If Grammar is modified)
-Run the following command to translate the .g4 grammar into Python files:
 
-Bash
+
+### ⚙️ Step 2: Generate Parser (if grammar changes)
+
+
 java -jar antlr-4.13.2-complete.jar -Dlanguage=Python3 -visitor ViperLang.g4
-Step 3: Launch the Compiler Studio
-Bash
+
+
+### 🚀 Step 3: Run the Compiler Studio
+
 streamlit run app.py
+
+
+## 🎯 Final Thoughts
+
+ViperLang is not just a compiler project — it's a **complete interactive system** that demonstrates:
+
+* Compiler design concepts
+* Runtime execution
+* Memory management
+* Real-world software integration
+
+
+
+Just tell me 👍
